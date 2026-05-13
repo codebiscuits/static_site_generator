@@ -10,7 +10,7 @@ class TestTextNode(unittest.TestCase):
 
     def test_not_eq(self):
         node = TextNode("first node", TextType.ITALIC)
-        node2 = TextNode("second node", TextType.PLAIN)
+        node2 = TextNode("second node", TextType.TEXT)
         self.assertNotEqual(node, node2)
 
     def test_url(self):
@@ -19,7 +19,7 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(test_url, node.url)
 
     def test_no_url(self):
-        node = TextNode("test", TextType.PLAIN)
+        node = TextNode("test", TextType.TEXT)
         self.assertEqual(node.url, None)
 
 if __name__ == "__main__":
