@@ -9,7 +9,7 @@ class BlockType(Enum):
     UNORDERED_LIST = "unordered_list"
     ORDERED_LIST = "ordered_list"
 
-def block_to_blocktype(block: str):
+def block_to_blocktype(block: str) -> BlockType:
     block_type = BlockType.PARAGRAPH
     match block[0]:
         case "#":

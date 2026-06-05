@@ -2,7 +2,7 @@ from textnode import TextNode, TextType
 from extract_markdown import *
 from pprint import pprint
 
-def split_nodes_image(nodes):
+def split_nodes_image(nodes: list[TextNode]) -> list[TextNode]:
     # print("\ncalling split image\n")
     new_nodes = []
     if not nodes:
@@ -40,7 +40,7 @@ def split_nodes_image(nodes):
     return new_nodes
 
 
-def split_nodes_link(nodes):
+def split_nodes_link(nodes: list[TextNode]) -> list[TextNode]:
     # print("\ncalling split link\n")
     new_nodes = []
     if not nodes:

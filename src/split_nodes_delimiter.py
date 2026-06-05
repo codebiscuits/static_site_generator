@@ -1,7 +1,7 @@
 from textnode import TextNode, TextType
 from pprint import pprint
 
-def split_nodes_delimiter(old_nodes, delimiter, text_type):
+def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: TextType) -> list[TextNode]:
     new_nodes = []
     for old in old_nodes:
         if old.text.count(delimiter) == 0:

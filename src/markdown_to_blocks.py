@@ -1,6 +1,6 @@
 from pprint import pprint
 
-def markdown_to_blocks(md):
+def markdown_to_blocks(md: str) -> list[str]:
     blocks = md.split("\n\n")
     return [block.strip("\n").strip() for block in blocks if block]
 
