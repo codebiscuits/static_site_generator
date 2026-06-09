@@ -7,6 +7,7 @@ def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: 
         if old.text.count(delimiter) == 0:
             new_nodes.append(old)
         elif old.text.count(delimiter) != 2:
+            print(f"delimiter {delimiter} count {old.text.count(delimiter)}")
             raise Exception("Text must contain exactly two instances of the delimiter")
         else:
             pieces = old.text.split(delimiter)

@@ -3,6 +3,7 @@ from htmlnode import LeafNode
 
 
 def text_node_to_html_node(text_node: TextNode) -> LeafNode:
+    # text_node.text = "".join(text_node.text.split("\n"))
     match text_node.text_type:
         case TextType.TEXT:
             return LeafNode(None, text_node.text)

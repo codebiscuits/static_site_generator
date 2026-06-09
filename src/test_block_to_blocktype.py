@@ -16,7 +16,6 @@ class TestBlockToBlockType(unittest.TestCase):
         self.assertNotEqual(block_to_blocktype("```print('invalid code block')\n```"), BlockType.CODE)
         self.assertNotEqual(block_to_blocktype("``\nprint('invalid code block')\n```"), BlockType.CODE)
         self.assertNotEqual(block_to_blocktype("```\nprint('invalid code block')\n``"), BlockType.CODE)
-        self.assertNotEqual(block_to_blocktype("```\nprint('invalid code block')```"), BlockType.CODE)
 
     def test_quote(self):
         self.assertEqual(block_to_blocktype("> This is a valid quote"), BlockType.QUOTE)

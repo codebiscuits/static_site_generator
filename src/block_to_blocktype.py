@@ -17,7 +17,7 @@ def block_to_blocktype(block: str) -> BlockType:
             if len(prefix) <= 6 and set(prefix) == {"#"}:
                 block_type = BlockType.HEADING
         case "`":
-            if block[:4] == "```\n" and block[-4:] == "\n```":
+            if block[:4] == "```\n" and block[-3:] == "```":
                 block_type = BlockType.CODE
         case ">":
             block_type = BlockType.QUOTE
@@ -34,28 +34,28 @@ def block_to_blocktype(block: str) -> BlockType:
     return block_type
 
 if __name__ == "__main__":
-    print("headings")
-    print(block_to_blocktype("# Heading"))
-    print(block_to_blocktype("## Heading"))
-    print(block_to_blocktype("### Heading"))
-    print(block_to_blocktype("#### Heading"))
-    print(block_to_blocktype("##### Heading"))
-    print(block_to_blocktype("###### Heading"))
-    print(block_to_blocktype("####### bad Heading"))
-    print("ol")
-    print(block_to_blocktype("1. valid ordered list\n2. Second item\n3. Third item"))
-    print(block_to_blocktype("1invalid ordered list\n2. Second item\n3. Third item"))
-    print(block_to_blocktype("1. invalid ordered list\n3. Second item\n3. Third item"))
-    print("ul")
-    print(block_to_blocktype("- valid unordered list\n- Second item\n- Third item"))
-    print(block_to_blocktype("-invalid unordered list\n- Second item\n- Third item"))
-    print(block_to_blocktype("- valid unordered list\n+ Second item\n- Third item"))
-    print("quote")
-    print(block_to_blocktype("> This is a valid quote"))
-    print(block_to_blocktype(">This is a valid quote"))
-    print("code")
+#     print("headings")
+#     print(block_to_blocktype("# Heading"))
+#     print(block_to_blocktype("## Heading"))
+#     print(block_to_blocktype("### Heading"))
+#     print(block_to_blocktype("#### Heading"))
+#     print(block_to_blocktype("##### Heading"))
+#     print(block_to_blocktype("###### Heading"))
+#     print(block_to_blocktype("####### bad Heading"))
+#     print("ol")
+#     print(block_to_blocktype("1. valid ordered list\n2. Second item\n3. Third item"))
+#     print(block_to_blocktype("1invalid ordered list\n2. Second item\n3. Third item"))
+#     print(block_to_blocktype("1. invalid ordered list\n3. Second item\n3. Third item"))
+#     print("ul")
+#     print(block_to_blocktype("- valid unordered list\n- Second item\n- Third item"))
+#     print(block_to_blocktype("-invalid unordered list\n- Second item\n- Third item"))
+#     print(block_to_blocktype("- valid unordered list\n+ Second item\n- Third item"))
+#     print("quote")
+#     print(block_to_blocktype("> This is a valid quote"))
+#     print(block_to_blocktype(">This is a valid quote"))
+#     print("code")
     print(block_to_blocktype("```\nprint('valid code block')\n```"))
+    print(block_to_blocktype("```\nprint('valid code block')```"))
     print(block_to_blocktype("```print('invalid code block')\n```"))
     print(block_to_blocktype("``\nprint('invalid code block')\n```"))
     print(block_to_blocktype("```\nprint('invalid code block')\n``"))
-    print(block_to_blocktype("```\nprint('invalid code block')```"))

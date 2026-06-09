@@ -6,6 +6,8 @@ def text_to_textnodes(text: str) -> list[TextNode]:
     if not text:
         return []
 
+    # text = text.replace("```", "`")
+
     start = TextNode(text, TextType.TEXT)
     first_output = split_nodes_delimiter([start], "**", TextType.BOLD)
     second_output = split_nodes_delimiter(first_output, "_", TextType.ITALIC)
