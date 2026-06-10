@@ -33,7 +33,11 @@ def markdown_to_html_node(md):
 
         elif bt == BlockType.PARAGRAPH:
             block = " ".join(block.split("\n"))
-            nodes.append(ParentNode("p", text_to_children(block)))
+            children = text_to_children(block)
+            if children:
+                nodes.append(ParentNode("p", children))
+            else:
+                nodes.append(LeafNode("p", block))
 
         elif bt == BlockType.CODE:
             text = block[4:-3]
@@ -42,20 +46,32 @@ def markdown_to_html_node(md):
             nodes.append(ParentNode("pre", text_node_to_html_node(tn)))
 
         elif bt == BlockType.QUOTE:
-            nodes.append(ParentNode("quote", text_to_children(block[1:].lstrip())))
+            children = text_to_children(block[1:].lstrip())
+            if children:
+                nodes.append(ParentNode("blockquote", children))
+            else:
+                nodes.append(LeafNode("blockquote", block))
 
         elif bt == BlockType.UNORDERED_LIST:
             lines = block.split("\n")
             html_lines = []
             for line in lines:
-                html_lines.append(ParentNode("li", text_to_children(line[2:])))
+                children = text_to_children(line[2:])
+                if children:
+                    html_lines.append(ParentNode("li", children))
+                else:
+                    html_lines.append(LeafNode("li", line[2:]))
             nodes.append(ParentNode("ul", html_lines))
 
         elif bt == BlockType.ORDERED_LIST:
             lines = block.split("\n")
             html_lines = []
             for line in lines:
-                html_lines.append(ParentNode("li", text_to_children(line[3:])))
+                children = text_to_children(line[3:])
+                if children:
+                    html_lines.append(ParentNode("li", children))
+                else:
+                    html_lines.append(LeafNode("li", line[3:]))
             nodes.append(ParentNode("ol", html_lines))
 
     return ParentNode("div", nodes)#.to_html()

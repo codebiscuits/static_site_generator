@@ -1,10 +1,10 @@
 class HTMLNode:
     def __init__(
             self,
-            tag: str = None,
-            value: str = None,
-            children: list[HTMLNode] = None,
-            props: dict[str, str] = None
+            tag: str | None = None,
+            value: str | None = None,
+            children: list[HTMLNode] | HTMLNode | None = None,
+            props: dict[str, str] | None = None
     ) -> None:
         self.tag = tag
         self.value = value
@@ -45,6 +45,7 @@ class ParentNode(HTMLNode):
         if self.tag is None:
             raise ValueError("ParentNode must have a tag")
         elif not self.children:
+            print(self.tag)
             raise ValueError("ParentNode must have children")
         else:
             if isinstance(self.children, list):

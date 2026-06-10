@@ -147,3 +147,21 @@ and so is this
             html,
             "<div><p>this is a line and so is this</p></div>"
         )
+
+    def test_straight_paragraph(self):
+        md = "This is a paragraph with no children."
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div><p>This is a paragraph with no children.</p></div>"
+        )
+
+    def test_empty_md(self):
+        md = ""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div></div>"
+        )

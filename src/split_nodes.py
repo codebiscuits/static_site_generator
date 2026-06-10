@@ -22,12 +22,15 @@ def split_nodes_image(nodes: list[TextNode]) -> list[TextNode]:
             split_str = f"![{match[0]}]({match[1]})"
             sections = node.text.split(split_str, maxsplit=1)
             sections = [s for s in sections if s]
-            new_nodes.extend(
-                (
-                    TextNode(sections[0], TextType.TEXT),
-                    TextNode(match[0], TextType.IMAGE, match[1]),
+            if sections:
+                new_nodes.extend(
+                    (
+                        TextNode(sections[0], TextType.TEXT),
+                        TextNode(match[0], TextType.IMAGE, match[1]),
+                    )
                 )
-            )
+            else:
+                new_nodes.append(TextNode(match[0], TextType.IMAGE, match[1]))
             # print("printing image sections:")
             # pprint(list(sections))
             # print("---")
@@ -53,16 +56,22 @@ def split_nodes_link(nodes: list[TextNode]) -> list[TextNode]:
             if not link_matches:
                 new_nodes.append(node)
                 continue
+            # print(f"split_nodes_link processing {node.text}")
             match = link_matches[0]
             split_str = f"[{match[0]}]({match[1]})"
             sections = node.text.split(split_str, maxsplit=1)
             sections = [s for s in sections if s]
-            new_nodes.extend(
-                (
-                    TextNode(sections[0], TextType.TEXT),
-                    TextNode(match[0], TextType.LINK, match[1]),
+            if sections:
+                print("sections:")
+                pprint(sections)
+                new_nodes.extend(
+                    (
+                        TextNode(sections[0], TextType.TEXT),
+                        TextNode(match[0], TextType.LINK, match[1]),
+                    )
                 )
-            )
+            else:
+                new_nodes.append(TextNode(match[0], TextType.LINK, match[1]))
             # print("printing link sections:")
             # pprint(list(sections))
             # print("---")
