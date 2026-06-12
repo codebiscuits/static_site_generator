@@ -6,18 +6,16 @@ def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: 
     for old in old_nodes:
         if old.text.count(delimiter) == 0:
             new_nodes.append(old)
-        elif old.text.count(delimiter) != 2:
-            print(f"delimiter {delimiter} count {old.text.count(delimiter)}")
-            raise Exception("Text must contain exactly two instances of the delimiter")
-        else:
+        elif old.text.count(delimiter)%2 == 0:
             pieces = old.text.split(delimiter)
-            new_nodes.extend(
-                (
-                    TextNode(pieces[0], TextType.TEXT),
-                    TextNode(pieces[1], text_type),
-                    TextNode(pieces[2], TextType.TEXT),
-                )
-            )
+            for n, piece in enumerate(pieces):
+                if n%2 == 0:
+                    new_nodes.append(TextNode(piece, TextType.TEXT))
+                else:
+                    new_nodes.append(TextNode(piece, text_type))
+        else:
+            # print(f"Problem text: {old.text}")
+            raise Exception("Text must contain exactly two instances of the delimiter")
     return new_nodes
 
 if __name__ == "__main__":
@@ -26,6 +24,7 @@ if __name__ == "__main__":
         TextNode("This contains **bold** text", TextType.TEXT),
         TextNode("This contains _italic_ text", TextType.TEXT),
         TextNode("This contains `code` text", TextType.TEXT),
+        TextNode("This contains `two` valid `code` fragments", TextType.TEXT),
         TextNode("This contains invalid **bold text", TextType.TEXT),
         TextNode("This contains invalid _italic text", TextType.TEXT),
         TextNode("This contains invalid `code text", TextType.TEXT),

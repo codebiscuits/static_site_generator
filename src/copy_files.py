@@ -19,8 +19,6 @@ def recursive_dir_rm(dir: Path) -> None:
     return
 
 def recursive_dir_copy(source: Path, dest: Path):
-    print(f"\ncurrent source: {source}")
-    print(f"current dest: {dest}")
     if source.is_file():
         dest = dest.with_suffix(source.suffix)
         print(f"copying \n{source} to \n{dest}")
@@ -39,9 +37,10 @@ def recursive_dir_copy(source: Path, dest: Path):
 
 
 def copy_dir(source, dest) -> None:
+    """calls recursive_dir_rm and recursive_dir_copy"""
     # first check that dest directory is empty
     old_dest = Path(dest)
-    if old_dest.is_dir():  # .exists() not needed, this will return false if the dir doesn't exist
+    if old_dest.is_dir():  # explicit '.exists()' not needed, .is_dir() will return false if the dir doesn't exist
         recursive_dir_rm(old_dest)
     new_dest = Path(dest)
 

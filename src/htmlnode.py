@@ -45,7 +45,6 @@ class ParentNode(HTMLNode):
         if self.tag is None:
             raise ValueError("ParentNode must have a tag")
         elif not self.children:
-            print(self.tag)
             raise ValueError("ParentNode must have children")
         else:
             if isinstance(self.children, list):

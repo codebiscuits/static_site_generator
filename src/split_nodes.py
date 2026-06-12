@@ -31,9 +31,6 @@ def split_nodes_image(nodes: list[TextNode]) -> list[TextNode]:
                 )
             else:
                 new_nodes.append(TextNode(match[0], TextType.IMAGE, match[1]))
-            # print("printing image sections:")
-            # pprint(list(sections))
-            # print("---")
             if len(sections) > 1:
                 if len(img_matches) > 1:
                     new_nodes.extend(split_nodes_image([TextNode(sections[1], TextType.TEXT)]))
@@ -62,8 +59,6 @@ def split_nodes_link(nodes: list[TextNode]) -> list[TextNode]:
             sections = node.text.split(split_str, maxsplit=1)
             sections = [s for s in sections if s]
             if sections:
-                print("sections:")
-                pprint(sections)
                 new_nodes.extend(
                     (
                         TextNode(sections[0], TextType.TEXT),
@@ -72,9 +67,6 @@ def split_nodes_link(nodes: list[TextNode]) -> list[TextNode]:
                 )
             else:
                 new_nodes.append(TextNode(match[0], TextType.LINK, match[1]))
-            # print("printing link sections:")
-            # pprint(list(sections))
-            # print("---")
             if len(sections) > 1:
                 if len(link_matches) > 1:
                     new_nodes.extend(split_nodes_link([TextNode(sections[1], TextType.TEXT)]))

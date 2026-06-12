@@ -31,3 +31,29 @@ def generate_page(from_path, template_path, dest_path):
 
     with open(dest, "w") as f:
         f.write(site)
+
+def generate_pages_recursive(source, template_path, dest):
+    """Slightly modified version of recursive_dir_copy"""
+    print(f"\ncurrent source: {source}")
+    print(f"current dest: {dest}")
+    source = Path(source)
+    dest = Path(dest)
+    if source.is_file() and source.suffix == ".md":
+        print("source is md file")
+        dest = dest.with_suffix(".html")
+        print(f"using \n{source} to generate \n{dest}")
+        generate_page(source, template_path, dest)
+        return
+    elif source.is_dir():
+        print("source is directory")
+        contents = source.iterdir()
+        if contents:
+            for item in contents:
+                new_dest = dest / item.stem
+                if item.is_dir():
+                    print(f"creating {new_dest}")
+                    new_dest.mkdir(parents=True)
+                generate_pages_recursive(item, template_path, new_dest)
+    else:
+        print(f"invalid source: {source}")
+    return

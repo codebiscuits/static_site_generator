@@ -124,7 +124,7 @@ the **same** even with inline stuff
         html = node.to_html()
         self.assertEqual(
             html,
-            "<div><quote>this is a block quote</quote><quote>this is too</quote></div>"
+            "<div><blockquote>this is a block quote</blockquote><blockquote>this is too</blockquote></div>"
         )
 
     def test_inline(self):

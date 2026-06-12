@@ -13,11 +13,9 @@ def text_to_children(text: str) -> list[HTMLNode]:
     return output
 
 def markdown_to_html_node(md):
-    # this line creates a list of strings that are blocks of markdown text
+    if md == "":
+        return LeafNode("div", "")
     blocks = markdown_to_blocks(md.strip())
-    # print("*")
-    # print(blocks)
-    # print("*")
 
     # now loop through that list of md strings
     nodes: list[HTMLNode] = []
@@ -41,7 +39,7 @@ def markdown_to_html_node(md):
 
         elif bt == BlockType.CODE:
             text = block[4:-3]
-            print(f"Text: {text}")
+            # print(f"Text: {text}")
             tn = TextNode(text, TextType.CODE)
             nodes.append(ParentNode("pre", text_node_to_html_node(tn)))
 
