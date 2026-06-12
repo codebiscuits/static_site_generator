@@ -3,16 +3,13 @@ import shutil
 
 def recursive_dir_rm(dir: Path) -> None:
     if dir.is_file():
-        print(f"removing {dir.parts[-4:]}")
         dir.unlink()
         return
     elif dir.is_dir():
         contents = list(dir.iterdir())
         if contents:
             for item in contents:
-                print(f"recursive call on {item}")
                 recursive_dir_rm(item)
-        print(f"removing {dir.parts[-4:]}")
         dir.rmdir()
         return
 
@@ -21,7 +18,6 @@ def recursive_dir_rm(dir: Path) -> None:
 def recursive_dir_copy(source: Path, dest: Path):
     if source.is_file():
         dest = dest.with_suffix(source.suffix)
-        print(f"copying \n{source} to \n{dest}")
         shutil.copy2(source, dest)
         return
     elif source.is_dir():
@@ -30,7 +26,6 @@ def recursive_dir_copy(source: Path, dest: Path):
             for item in contents:
                 new_dest = dest / item.stem
                 if item.is_dir():
-                    print(f"creating {new_dest}")
                     new_dest.mkdir(parents=True)
                 recursive_dir_copy(item, new_dest)
     return
