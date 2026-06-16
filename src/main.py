@@ -1,6 +1,9 @@
 from copy_files import copy_dir
 from generate_page import generate_page, generate_pages_recursive
+from pathlib import Path
 import sys
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 def main():
@@ -10,16 +13,18 @@ def main():
         base_path = "/"
     print("base_path:", base_path)
 
-    # First, copy everything from /static to /public
-    copy_dir("/home/ross/Documents/Coding/2026/static_site_generator/static",
-             "/home/ross/Documents/Coding/2026/static_site_generator/docs"
-             )
+    # First, copy everything from /static into /docs
+    copy_dir(
+        BASE_DIR / "static",
+        BASE_DIR / "docs",
+    )
 
-    # Next, generate html files from the md files in /content
-    generate_pages_recursive("/home/ross/Documents/Coding/2026/static_site_generator/content",
-                             "/home/ross/Documents/Coding/2026/static_site_generator/template.html",
-                             "/home/ross/Documents/Coding/2026/static_site_generator/docs",
-                             base_path
-                             )
+    # Then generate html from all markdown files in /content and put into /docs
+    generate_pages_recursive(
+        BASE_DIR / "content",
+        BASE_DIR / "template.html",
+        BASE_DIR / "docs",
+        base_path,
+    )
 
 main()
